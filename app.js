@@ -30,7 +30,6 @@ app.post("/", async (req, res) => {
   try {
     const savedPost = await post.save();
     res.json(savedPost);
-    // res.status(201).send(req.body);
   } catch (err) {
     res.json({ message: err });
   }
