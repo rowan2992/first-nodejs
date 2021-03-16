@@ -1,7 +1,6 @@
 const express = require("express");
 const Post = require("../models/Post");
 const router = express.Router();
-// const app = express();
 
 // Routes
 // See all posts
@@ -24,7 +23,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
 // Create a post
 router.post("/", async (req, res) => {
   const post = new Post({
@@ -46,6 +44,19 @@ router.delete("/:id", async (req, res) => {
     res.json(deletedPost);
   } catch (err) {
     res.json({ message: err });
+  }
+});
+
+// Update a post
+router.patch("/:id", async (req, res) => {
+  try {
+    const updatedPost = await Post.updateOne(
+      { _id: req.params.id },
+      { $set: { title: req.body.title, description: req.body.description } }
+    );
+    res.json(updatedPost);
+  } catch (err) {
+     res.json( { message: err });
   }
 });
 
