@@ -3,19 +3,31 @@ const Post = require("../models/Post");
 const router = express.Router();
 // const app = express();
 
-// // // Middlewares
-// // app.use(express.json());
-// // app.use(express.urlencoded({ extended: true }));
+// Middlewares
+// router.use(express.urlencoded({ extended: true }));
+// router.use(express.json());
 
 // Routes
-router.get('/', (req, res) => {
-  res.send("we are on posts");
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.json(posts);
+  } catch (err) {
+    res.json({ message: err });
+  }
 });
 
-
-router.post('/specific', (req, res) => {
-  console.log("LOG TO CONSOLE");
-  res.status(201).send({"name": "barry"});
+router.post("/", async (req, res) => {
+  const post = new Post({
+    title: req.body.title,
+    description: req.body.description
+  });
+  try {
+    const savedPost = await post.save();
+    res.json(savedPost);
+  } catch (err) {
+    res.json({ message: "poop" });
+  }
 });
 
 

@@ -6,34 +6,18 @@ const Post = require("./models/Post");
 
 
 // Import Routes
-// const postsRoute = require("./routes/posts");
 
-// app.use("/posts", postsRoute);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const postsRoute = require("./routes/posts");
+
+app.use("/posts", postsRoute);
+
 // Routes
 app.get("/", async (req, res) => {
-  try {
-    const posts = await Post.find();
-    res.json(posts);
-  } catch (err) {
-    res.json({ message: err });
-  }
+  res.send("HOME");
 })
-
-app.post("/", async (req, res) => {
-  const post = new Post({
-    title: req.body.title,
-    description: req.body.description
-  });
-  try {
-    const savedPost = await post.save();
-    res.json(savedPost);
-  } catch (err) {
-    res.json({ message: err });
-  }
-});
 
 // Connect to DB
 connectDB();
@@ -41,33 +25,3 @@ connectDB();
 app.listen(3000, () => console.log("SERVER HAS STARTED!"));
 
 
-
-
-
-
-
-
-
-
-
-
-
-// MONGODB_URI = "mongodb+srv://jaguar:testtest123@cluster0.irdcv.mongodb.net/test?retryWrites=true&w=majority";
-
-// mongoose.connect(MONGODB_URI || "mongodb://localhost/", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// });
-
-// const MongoClient = require('mongodb').MongoClient;
-// const uri = "mongodb+srv://jaguar:<password>@cluster0.irdcv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-//   // perform actions on the collection object
-//   client.close();
-// });
-
-// mongoose.connection.on("connected", () => {
-//   console.log("The DB is connected!!!!!");
-// });
