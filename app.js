@@ -4,7 +4,6 @@ const connectDB = require("./connectionDB.js");
 
 const Post = require("./models/Post");
 
-
 // Import Routes
 
 app.use(express.urlencoded({ extended: true }));
@@ -23,5 +22,3 @@ app.get("/", async (req, res) => {
 connectDB();
 
 app.listen(3000, () => console.log("SERVER HAS STARTED!"));
-
-
