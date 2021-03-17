@@ -26,8 +26,8 @@ router.get('/:id', async (req, res) => {
 // Create a post
 router.post("/", async (req, res) => {
   const post = new Post({
-    title: req.body.title,
-    description: req.body.description
+    name: req.body.name,
+    definition: req.body.definition
   });
   try {
     const savedPost = await post.save();
@@ -52,7 +52,7 @@ router.patch("/:id", async (req, res) => {
   try {
     const updatedPost = await Post.updateOne(
       { _id: req.params.id },
-      { $set: { title: req.body.title, description: req.body.description } }
+      { $set: { name: req.body.name, definition: req.body.definition } }
     );
     res.json(updatedPost);
   } catch (err) {
